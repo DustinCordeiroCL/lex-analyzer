@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import FileUploadArea from "@/components/file-upload-area"
-import { InputMode, OutputLanguage } from "@/types/analysis"
+import { AnalysisResult, InputMode, OutputLanguage } from "@/types/analysis"
 
 const MAX_CHARS = 10000
 
@@ -22,7 +22,12 @@ const LANGUAGE_OPTIONS: { label: string; value: OutputLanguage }[] = [
   { label: "🇺🇸 English (US)", value: "American English" },
 ]
 
-export default function AnalyzerForm(): React.ReactElement {
+interface AnalyzerFormProps {
+  onResult: (result: AnalysisResult) => void
+  onError: (message: string) => void
+}
+
+export default function AnalyzerForm({ onResult, onError }: AnalyzerFormProps): React.ReactElement {
   const [inputMode, setInputMode] = useState<InputMode>("text")
   const [textContent, setTextContent] = useState("")
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -34,12 +39,48 @@ export default function AnalyzerForm(): React.ReactElement {
     (inputMode === "text" && textContent.trim().length === 0) ||
     (inputMode === "file" && selectedFile === null)
 
-  // Will be wired to /api/analyze in Stage 3
   async function handleSubmit(): Promise<void> {
     setIsLoading(true)
-    // placeholder
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setIsLoading(false)
+    onError("")
+
+    try {
+      const secret = process.env.NEXT_PUBLIC_APP_SECRET ?? ""
+      let response: Response
+
+      if (inputMode === "file" && selectedFile) {
+        const formData = new FormData()
+        formData.append("file", selectedFile)
+        formData.append("language", language)
+
+        response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "x-app-secret": secret },
+          body: formData,
+        })
+      } else {
+        response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-app-secret": secret,
+          },
+          body: JSON.stringify({ text: textContent, language }),
+        })
+      }
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        onError(data.error ?? "Ocurrió un error inesperado.")
+        return
+      }
+
+      onResult(data as AnalysisResult)
+    } catch {
+      onError("No se pudo conectar con el servidor. Verifica tu conexión.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
