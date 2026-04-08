@@ -80,7 +80,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const systemPrompt = SYSTEM_PROMPT.replace("{SELECTED_LANGUAGE}", language)
 
     const message = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: 4096,
       system: systemPrompt,
       messages: [{ role: "user", content: documentText }],
@@ -91,7 +91,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       throw new Error("Unexpected response type from Claude API")
     }
 
-    const result: AnalysisResult = JSON.parse(rawContent.text)
+    // Strip markdown code blocks if the model wraps the JSON
+    const cleaned = rawContent.text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim()
+    const result: AnalysisResult = JSON.parse(cleaned)
     return NextResponse.json(result)
   } catch (error) {
     if (error instanceof SyntaxError) {
