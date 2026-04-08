@@ -1,0 +1,58 @@
+CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES
+
+En Santiago de Chile, a 01 de marzo de 2025, entre las partes que se individualizan a continuación:
+
+PARTE A — CONTRATANTE:
+Empresa TechSoluciones SpA, RUT 76.543.210-K, con domicilio en Av. Apoquindo 4501, oficina 801, Las Condes, Santiago, representada por su Gerente General don Rodrigo Fuentes Moya, RUT 12.345.678-9.
+
+PARTE B — PRESTADOR DE SERVICIOS:
+Don Carlos Andrés Vega Romero, RUT 15.789.456-3, ingeniero en sistemas, con domicilio en Calle Los Aromos 234, Ñuñoa, Santiago.
+
+PRIMERO: OBJETO DEL CONTRATO
+El Prestador se obliga a desarrollar un sistema de gestión de inventario para la empresa Contratante, incluyendo diseño, desarrollo, pruebas y puesta en marcha, según las especificaciones acordadas en el Anexo Técnico adjunto.
+
+SEGUNDO: PLAZO
+El proyecto deberá estar completamente entregado en un plazo de 90 días corridos contados desde la firma del presente contrato. El incumplimiento del plazo acarreará una multa equivalente al 2% del valor total del contrato por cada semana de atraso, con un tope máximo del 20%.
+
+TERCERO: HONORARIOS Y FORMA DE PAGO
+El Contratante pagará al Prestador la suma total de $8.500.000 (ocho millones quinientos mil pesos chilenos), distribuidos de la siguiente manera:
+- 30% al inicio del proyecto: $2.550.000
+- 40% al cumplir el 50% de los entregables pactados: $3.400.000
+- 30% contra entrega final aprobada: $2.550.000
+
+Los pagos se realizarán mediante transferencia bancaria dentro de los 10 días hábiles siguientes al cumplimiento de cada hito.
+
+CUARTO: OBLIGACIONES DEL PRESTADOR
+a) Ejecutar los servicios con la diligencia y competencia técnica propias de su profesión.
+b) Mantener confidencialidad absoluta sobre la información, datos y documentos del Contratante.
+c) Informar oportunamente de cualquier obstáculo que pueda afectar el cumplimiento del plazo.
+d) No subcontratar total ni parcialmente los servicios sin autorización escrita del Contratante.
+e) Entregar el código fuente completo y documentación técnica al término del contrato.
+
+QUINTO: OBLIGACIONES DEL CONTRATANTE
+a) Pagar los honorarios en los plazos y condiciones pactados.
+b) Proporcionar al Prestador acceso a los sistemas, información y personal necesario para el desarrollo del proyecto.
+c) Designar un contraparte técnica que valide los entregables dentro de un plazo máximo de 5 días hábiles.
+d) Aprobar o rechazar fundadamente cada entregable dentro del plazo señalado.
+
+SEXTO: DERECHOS DE PROPIEDAD INTELECTUAL
+Todos los desarrollos, código fuente, diseños y documentación elaborados en el marco de este contrato serán de propiedad exclusiva del Contratante una vez efectuado el pago total de los honorarios.
+
+SÉPTIMO: CONFIDENCIALIDAD
+El Prestador se obliga a mantener estricta reserva sobre la información del Contratante durante la vigencia del contrato y por un período de 3 años posteriores a su término. La violación de esta cláusula facultará al Contratante para demandar indemnización de perjuicios.
+
+OCTAVO: TÉRMINO ANTICIPADO
+Cualquiera de las partes podrá poner término anticipado al contrato con un aviso de 15 días corridos. En caso de término anticipado por decisión unilateral del Contratante, deberá pagar los honorarios proporcionales al trabajo efectivamente realizado más una compensación equivalente al 15% del monto restante del contrato. Si el término es por incumplimiento grave del Prestador, el Contratante podrá retener los pagos pendientes y exigir la devolución proporcional de lo pagado por trabajos no entregados.
+
+NOVENO: RESOLUCIÓN DE CONFLICTOS
+En caso de controversia, las partes se someten a la jurisdicción de los Tribunales Ordinarios de Justicia de Santiago, renunciando a cualquier otro fuero o domicilio que pudiera corresponderles.
+
+DÉCIMO: INTEGRACIÓN DEL CONTRATO
+El presente instrumento, junto con su Anexo Técnico, constituye el acuerdo completo entre las partes y reemplaza cualquier negociación, acuerdo o representación anterior.
+
+En fe de lo cual, las partes firman el presente contrato en dos ejemplares del mismo tenor y valor, en el lugar y fecha indicados al inicio.
+
+___________________________          ___________________________
+Rodrigo Fuentes Moya                 Carlos Andrés Vega Romero
+Gerente General TechSoluciones SpA   Prestador de Servicios
+RUT 12.345.678-9                     RUT 15.789.456-3
