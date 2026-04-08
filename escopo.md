@@ -117,8 +117,10 @@ Respond entirely in the following language: {SELECTED_LANGUAGE}
 Usuário (texto ou arquivo) + idioma selecionado
         ↓
 POST /api/analyze (FormData ou JSON)
+  + Header: x-app-secret: APP_SECRET
         ↓
 Route Handler:
+  - Valida x-app-secret → 401 se inválido
   - .txt → buffer.toString()
   - .pdf → pdf-parse
   - .docx → mammoth
@@ -130,6 +132,17 @@ Parse do JSON retornado
         ↓
 Renderização dos cards no frontend
 ```
+
+---
+
+## Segurança
+
+| Variável | Descrição |
+|----------|-----------|
+| `APP_SECRET` | Senha enviada no header `x-app-secret` em toda requisição à `/api/analyze` |
+
+- Route Handler retorna `401` se o header estiver ausente ou incorreto
+- Frontend lê `APP_SECRET` via `NEXT_PUBLIC_APP_SECRET` e envia automaticamente
 
 ---
 
