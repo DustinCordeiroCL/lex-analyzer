@@ -103,9 +103,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       )
     }
 
-    console.error("[/api/analyze]", error)
+    const message = error instanceof Error ? error.message : String(error)
+    console.error("[/api/analyze]", message)
     return NextResponse.json(
-      { error: "Ocurrió un error inesperado. Por favor, intenta más tarde." },
+      {
+        error: "Ocurrió un error inesperado. Por favor, intenta más tarde.",
+        ...(process.env.NODE_ENV !== "production" && { debug: message }),
+      },
       { status: 500 }
     )
   }
