@@ -1,0 +1,18 @@
+-- CreateTable
+CREATE TABLE "AccessCode" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "code" TEXT NOT NULL,
+    "usageCount" INTEGER NOT NULL DEFAULT 0,
+    "maxUsage" INTEGER NOT NULL DEFAULT 2,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "GlobalCounter" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT DEFAULT 1,
+    "count" INTEGER NOT NULL DEFAULT 0,
+    "cap" INTEGER NOT NULL DEFAULT 20
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "AccessCode_code_key" ON "AccessCode"("code");

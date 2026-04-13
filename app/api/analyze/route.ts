@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import Anthropic from "@anthropic-ai/sdk"
 import { extractTextFromFile } from "@/lib/extract-text"
+import { validateAndReserve } from "@/lib/usage"
 import { AnalysisResult, OutputLanguage } from "@/types/analysis"
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -33,9 +34,14 @@ Analyze the provided legal document and return ONLY a valid JSON object
 Respond entirely in the following language: {SELECTED_LANGUAGE}`
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const secret = request.headers.get("x-app-secret")
-  if (!secret || secret !== process.env.APP_SECRET) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
+  // Valida código de acesso + cap global
+  const accessCode = request.headers.get("x-access-code") ?? ""
+  if (!accessCode) {
+    return NextResponse.json({ error: "Se requiere un código de acceso." }, { status: 401 })
+  }
+  const validation = await validateAndReserve(accessCode)
+  if (!validation.ok) {
+    return NextResponse.json({ error: validation.error }, { status: validation.status })
   }
 
   let documentText: string

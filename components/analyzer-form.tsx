@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Loader2, Scale } from "lucide-react"
+import { Loader2, Scale, KeyRound } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -33,9 +34,11 @@ export default function AnalyzerForm({ onResult, onError }: AnalyzerFormProps): 
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [language, setLanguage] = useState<OutputLanguage>("Chilean Spanish")
   const [isLoading, setIsLoading] = useState(false)
+  const [accessCode, setAccessCode] = useState("")
 
   const isSubmitDisabled =
     isLoading ||
+    accessCode.trim().length === 0 ||
     (inputMode === "text" && textContent.trim().length === 0) ||
     (inputMode === "file" && selectedFile === null)
 
@@ -44,7 +47,6 @@ export default function AnalyzerForm({ onResult, onError }: AnalyzerFormProps): 
     onError("")
 
     try {
-      const secret = process.env.NEXT_PUBLIC_APP_SECRET ?? ""
       let response: Response
 
       if (inputMode === "file" && selectedFile) {
@@ -54,7 +56,7 @@ export default function AnalyzerForm({ onResult, onError }: AnalyzerFormProps): 
 
         response = await fetch("/api/analyze", {
           method: "POST",
-          headers: { "x-app-secret": secret },
+          headers: { "x-access-code": accessCode.trim() },
           body: formData,
         })
       } else {
@@ -62,7 +64,7 @@ export default function AnalyzerForm({ onResult, onError }: AnalyzerFormProps): 
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-app-secret": secret,
+            "x-access-code": accessCode.trim(),
           },
           body: JSON.stringify({ text: textContent, language }),
         })
@@ -85,6 +87,19 @@ export default function AnalyzerForm({ onResult, onError }: AnalyzerFormProps): 
 
   return (
     <div className="w-full rounded-xl border border-slate-200 bg-white shadow-sm">
+      {/* Código de acceso */}
+      <div className="flex items-center gap-3 border-b border-slate-200 px-5 py-4 bg-slate-50 rounded-t-xl">
+        <KeyRound className="h-4 w-4 text-slate-400 shrink-0" />
+        <Input
+          value={accessCode}
+          onChange={(e) => setAccessCode(e.target.value.toUpperCase())}
+          placeholder="Código de acceso — ej: LX-A3F9-K2B1"
+          className="h-9 border-slate-200 bg-white font-mono text-sm tracking-wider placeholder:font-sans placeholder:tracking-normal"
+          disabled={isLoading}
+          maxLength={12}
+        />
+      </div>
+
       {/* Mode toggle */}
       <div className="flex border-b border-slate-200">
         {(["text", "file"] as InputMode[]).map((mode) => (
