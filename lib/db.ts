@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+import { PrismaLibSQL } from "@prisma/adapter-libsql"
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
@@ -10,15 +11,10 @@ function createPrisma(): PrismaClient {
     url.startsWith("https://")
 
   if (isTurso) {
-    // Lazy import para não quebrar o bundle client-side
-    const { PrismaLibSQL } = require("@prisma/adapter-libsql")
-    const { createClient } = require("@libsql/client")
-
-    const client = createClient({
+    const adapter = new PrismaLibSQL({
       url,
       authToken: process.env.DATABASE_AUTH_TOKEN,
     })
-    const adapter = new PrismaLibSQL(client)
     return new PrismaClient({ adapter } as never)
   }
 
