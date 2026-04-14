@@ -66,7 +66,16 @@ export default function Home(): React.ReactElement {
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-4">
         <p className="text-center text-xs text-slate-400">
-          LexAnalyzer · Impulsado por{" "}
+          Desarrollado por{" "}
+          <a
+            href="https://dustincordeiro.dev"
+            target="_blank"
+            rel="noopener"
+            className="font-medium text-slate-500 hover:text-slate-700 transition-colors"
+          >
+            Dustin Cordeiro
+          </a>
+          {" "}· Impulsado por{" "}
           <span className="font-medium text-slate-500">Claude AI</span>
         </p>
       </footer>
