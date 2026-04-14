@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Scale } from "lucide-react"
 import AnalyzerForm from "@/components/analyzer-form"
 import AnalysisResultView from "@/components/analysis-result"
+import { DemoModalTrigger } from "@/components/demo-modal"
 import { AnalysisResult } from "@/types/analysis"
 
 export default function Home(): React.ReactElement {
@@ -17,6 +18,7 @@ export default function Home(): React.ReactElement {
 
   return (
     <div className="flex min-h-full flex-col bg-slate-50">
+      <DemoModalTrigger />
       {/* Header */}
       <header className="border-b border-slate-800 bg-slate-900">
         <div className="mx-auto flex max-w-4xl items-center gap-3 px-4 py-5 sm:px-6">
