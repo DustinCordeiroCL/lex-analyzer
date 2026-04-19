@@ -1,64 +1,74 @@
 # LexAnalyzer
 
-Análisis inteligente de documentos legales mediante IA. Procesa contratos en formato texto, PDF o DOCX y devuelve un análisis estructurado con resumen ejecutivo, partes, obligaciones, cláusulas de riesgo, alertas legales y recomendaciones.
+Ferramenta de análise inteligente de documentos jurídicos via IA. Processa contratos em formato texto, PDF ou DOCX e retorna uma análise estruturada com resumo executivo, partes envolvidas, obrigações, cláusulas de risco, alertas legais e recomendações.
 
-## Requisitos
+**Demo:** [lex-analyzer.dustincordeiro.dev](https://lex-analyzer.dustincordeiro.dev)
 
-- Node.js 18+
-- Cuenta en [Anthropic Console](https://console.anthropic.com) para obtener la API key
+## Stack
 
-## Cómo ejecutar localmente
+| Tecnologia | Detalhe |
+|------------|---------|
+| Next.js (App Router) | Framework fullstack |
+| TypeScript | Tipagem estática |
+| Tailwind CSS + shadcn/ui | Interface |
+| Claude API (`claude-sonnet-4-6`) | Análise por IA |
+| Prisma + Turso (libSQL) | Banco de dados |
+| Vercel | Deploy |
+
+## Funcionalidades
+
+- Upload de arquivos `.pdf`, `.docx` e `.txt` ou colagem de texto direto
+- Análise estruturada: resumo, partes, obrigações, cláusulas de risco e recomendações
+- Sistema de controle de acesso por códigos (`LX-XXXX-XXXX`) com limite de uso
+- Cap global configurável de análises totais
+
+## Como executar localmente
 
 ```bash
-# Instalar dependencias
 npm install
 
-# Configurar variables de entorno
 cp .env.example .env.local
-# Editar .env.local y completar las variables requeridas
+# Preencha as variáveis no .env.local
 
-# Iniciar servidor de desarrollo
 npm run dev
 ```
 
-Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
+Abra [http://localhost:3000](http://localhost:3000).
 
-## Variables de entorno
+## Variáveis de ambiente
 
-| Variable | Descripción |
-|----------|-------------|
-| `ANTHROPIC_API_KEY` | API key de Anthropic (Claude) |
-| `APP_SECRET` | Contraseña del servidor — protege el endpoint `/api/analyze` |
-| `NEXT_PUBLIC_APP_SECRET` | Misma contraseña, expuesta al navegador — debe coincidir con `APP_SECRET` |
+| Variável | Descrição |
+|----------|-----------|
+| `ANTHROPIC_API_KEY` | Chave da API Anthropic — [console.anthropic.com](https://console.anthropic.com) |
+| `APP_SECRET` | Segredo que protege o endpoint `/api/admin/codes` |
+| `DATABASE_URL` | SQLite local (`file:./prisma/dev.db`) ou URL Turso em produção |
+| `DATABASE_AUTH_TOKEN` | Token de autenticação Turso (apenas produção) |
 
-Ver `.env.example` para referencia.
+Consulte `.env.example` para referência.
 
-## Formatos de documento soportados
+## Formatos suportados
 
 | Formato | Notas |
 |---------|-------|
 | `.txt` | Texto plano |
-| `.pdf` | Procesado server-side vía `pdf-parse` |
-| `.docx` | Procesado server-side vía `mammoth` |
+| `.pdf` | Processado server-side via `pdf-parse` |
+| `.docx` | Processado server-side via `mammoth` |
 
-Tamaño máximo: **5 MB**. Límite de texto pegado: **10.000 caracteres**.
+Tamanho máximo: **5 MB**. Limite de texto colado: **10.000 caracteres**.
 
-## Archivos de prueba
+## Arquivos de exemplo
 
-La carpeta `docs/` contiene dos contratos de ejemplo para testear la aplicación:
+A pasta `docs/` contém contratos de exemplo para teste:
 
-- `docs/contrato-servicio.txt` — úsalo en modo **"Pegar texto"** (copia y pega el contenido)
-- `docs/contrato-arriendo.txt` — úsalo en modo **"Subir archivo"** (cárgalo directamente)
+- `docs/contrato-servicio.txt` — use no modo **"Colar texto"**
+- `docs/contrato-arriendo.txt` — use no modo **"Enviar arquivo"**
 
-## Deploy en Vercel
+## Deploy no Vercel
 
-1. Hacer push del repositorio a GitHub
-2. Importar el proyecto en [vercel.com](https://vercel.com)
-3. Configurar las variables de entorno en el dashboard de Vercel:
-   - `ANTHROPIC_API_KEY`
-   - `APP_SECRET`
-   - `NEXT_PUBLIC_APP_SECRET`
-4. Verificar que el build pasa localmente antes de deployar:
+1. Faça push do repositório para o GitHub
+2. Importe o projeto em [vercel.com](https://vercel.com)
+3. Configure as variáveis de ambiente no dashboard
+4. Verifique o build localmente antes de publicar:
 
 ```bash
 npm run build
