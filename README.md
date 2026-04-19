@@ -1,74 +1,74 @@
 # LexAnalyzer
 
-Ferramenta de análise inteligente de documentos jurídicos via IA. Processa contratos em formato texto, PDF ou DOCX e retorna uma análise estruturada com resumo executivo, partes envolvidas, obrigações, cláusulas de risco, alertas legais e recomendações.
+AI-powered legal document analysis tool. Upload or paste a contract in `.txt`, `.pdf`, or `.docx` format and get a structured breakdown covering executive summary, parties involved, obligations, risk clauses, legal alerts, and recommendations.
 
-**Demo:** [lex-analyzer.dustincordeiro.dev](https://lex-analyzer.dustincordeiro.dev)
+**Live demo:** [lex-analyzer.dustincordeiro.dev](https://lex-analyzer.dustincordeiro.dev)
 
 ## Stack
 
-| Tecnologia | Detalhe |
+| Technology | Details |
 |------------|---------|
-| Next.js (App Router) | Framework fullstack |
-| TypeScript | Tipagem estática |
-| Tailwind CSS + shadcn/ui | Interface |
-| Claude API (`claude-sonnet-4-6`) | Análise por IA |
-| Prisma + Turso (libSQL) | Banco de dados |
-| Vercel | Deploy |
+| Next.js (App Router) | Fullstack framework |
+| TypeScript | Static typing |
+| Tailwind CSS + shadcn/ui | UI |
+| Claude API (`claude-sonnet-4-6`) | AI analysis |
+| Prisma + Turso (libSQL) | Database |
+| Vercel | Deployment |
 
-## Funcionalidades
+## Features
 
-- Upload de arquivos `.pdf`, `.docx` e `.txt` ou colagem de texto direto
-- Análise estruturada: resumo, partes, obrigações, cláusulas de risco e recomendações
-- Sistema de controle de acesso por códigos (`LX-XXXX-XXXX`) com limite de uso
-- Cap global configurável de análises totais
+- Upload `.pdf`, `.docx`, `.txt` files or paste text directly
+- Structured analysis: summary, parties, obligations, risk clauses, and recommendations
+- Access code system (`LX-XXXX-XXXX`) with per-code usage limits
+- Configurable global cap on total analyses
 
-## Como executar localmente
+## Running locally
 
 ```bash
 npm install
 
 cp .env.example .env.local
-# Preencha as variáveis no .env.local
+# Fill in the required variables in .env.local
 
 npm run dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
 
-## Variáveis de ambiente
+## Environment variables
 
-| Variável | Descrição |
-|----------|-----------|
-| `ANTHROPIC_API_KEY` | Chave da API Anthropic — [console.anthropic.com](https://console.anthropic.com) |
-| `APP_SECRET` | Segredo que protege o endpoint `/api/admin/codes` |
-| `DATABASE_URL` | SQLite local (`file:./prisma/dev.db`) ou URL Turso em produção |
-| `DATABASE_AUTH_TOKEN` | Token de autenticação Turso (apenas produção) |
+| Variable | Description |
+|----------|-------------|
+| `ANTHROPIC_API_KEY` | Anthropic API key — [console.anthropic.com](https://console.anthropic.com) |
+| `APP_SECRET` | Secret that protects the `/api/admin/codes` endpoint |
+| `DATABASE_URL` | SQLite locally (`file:./prisma/dev.db`) or Turso URL in production |
+| `DATABASE_AUTH_TOKEN` | Turso authentication token (production only) |
 
-Consulte `.env.example` para referência.
+See `.env.example` for reference.
 
-## Formatos suportados
+## Supported formats
 
-| Formato | Notas |
-|---------|-------|
-| `.txt` | Texto plano |
-| `.pdf` | Processado server-side via `pdf-parse` |
-| `.docx` | Processado server-side via `mammoth` |
+| Format | Notes |
+|--------|-------|
+| `.txt` | Plain text |
+| `.pdf` | Server-side parsing via `pdf-parse` |
+| `.docx` | Server-side parsing via `mammoth` |
 
-Tamanho máximo: **5 MB**. Limite de texto colado: **10.000 caracteres**.
+Max file size: **5 MB**. Max pasted text: **10,000 characters**.
 
-## Arquivos de exemplo
+## Sample files
 
-A pasta `docs/` contém contratos de exemplo para teste:
+The `docs/` folder contains example contracts for testing:
 
-- `docs/contrato-servicio.txt` — use no modo **"Colar texto"**
-- `docs/contrato-arriendo.txt` — use no modo **"Enviar arquivo"**
+- `docs/contrato-servicio.txt` — use with **"Paste text"** mode
+- `docs/contrato-arriendo.txt` — use with **"Upload file"** mode
 
-## Deploy no Vercel
+## Deploying to Vercel
 
-1. Faça push do repositório para o GitHub
-2. Importe o projeto em [vercel.com](https://vercel.com)
-3. Configure as variáveis de ambiente no dashboard
-4. Verifique o build localmente antes de publicar:
+1. Push the repository to GitHub
+2. Import the project at [vercel.com](https://vercel.com)
+3. Set the environment variables in the Vercel dashboard
+4. Verify the build passes locally before deploying:
 
 ```bash
 npm run build
